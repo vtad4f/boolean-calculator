@@ -84,7 +84,7 @@ class Input(object):
         ("FALSE", "F"),
     ]
     
-    ALPHA = "ABCDEGHIJKLMNOPQRSUWXYZ"
+    ALPHA = set(list("ABCDEGHIJKLMNOPQRSUWXYZ"))
     
     
     def __init__(self):
@@ -93,9 +93,9 @@ class Input(object):
         """
         self.content = input().strip().upper()
         
-        if 'EXIT' in self.content:
-            raise Exception # User exited
-            
+        self.exit = ('EXIT' in self.content)
+        self.help = ('HELP' in self.content)
+        
     def Preprocessing(self):
         """
             BRIEF  Perform string replacements
@@ -109,10 +109,10 @@ class Input(object):
         self._Replace(Input.TRUE_FALSE)
         
         s_symbols = []
-        for a in Input.ALPHA:
-            if a in self.content:
+        for a in self.content:
+            if (a in Input.ALPHA) and not (a in s_symbols):
                 s_symbols.append(a)
-        
+                
         return self.content, s_symbols
         
     def _Replace(self, replacements):
@@ -129,5 +129,3 @@ if __name__ == '__main__':
     """
     
     
-            
-            
