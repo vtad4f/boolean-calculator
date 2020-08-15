@@ -6,7 +6,8 @@ class Bool(object):
                in python. We are re-using them because python does not allow
                us to define custom operators.
                
-               I could have built these operators up from 
+               It is important for or and nor to be represented by + and - for
+               the sake or order of operation.
     """
     TRUE  = 1
     FALSE = 0
@@ -24,23 +25,11 @@ class Bool(object):
         """
         return str(self.value)
         
-    def __invert__(self)
+    def __invert__(self):
         """
-            BRIEF  '~ A' This will represent 'not A'
+            BRIEF  '~ A' will represent 'not A'
         """
         return Bool(Bool.FALSE) if self.value else Bool(Bool.TRUE)
-        
-    def __add__(self, other):
-        """
-            BRIEF  'A + B' This will represent 'A or B'
-        """
-        return Bool(Bool.FALSE) if (self.value is Bool.FALSE and other.value is Bool.FALSE) else Bool(Bool.TRUE)
-        
-    def __sub__(self, other):
-        """
-            BRIEF  'A - B' This will represent 'A nor B'
-        """
-        return Bool(Bool.TRUE) if (self.value is Bool.FALSE and other.value is Bool.FALSE) else Bool(Bool.FALSE)
         
     def __mul__(self, other):
         """
@@ -53,6 +42,18 @@ class Bool(object):
             BRIEF  'A @ B' will represent 'A nand B'
         """
         return Bool(Bool.TRUE) if (self.value is Bool.TRUE and other.value is Bool.TRUE) else Bool(Bool.FALSE)
+        
+    def __add__(self, other):
+        """
+            BRIEF  'A + B' will represent 'A or B'
+        """
+        return Bool(Bool.FALSE) if (self.value is Bool.FALSE and other.value is Bool.FALSE) else Bool(Bool.TRUE)
+        
+    def __sub__(self, other):
+        """
+            BRIEF  'A - B' will represent 'A nor B'
+        """
+        return Bool(Bool.TRUE) if (self.value is Bool.FALSE and other.value is Bool.FALSE) else Bool(Bool.FALSE)
         
     def __rshift__(self, other):
         """
@@ -91,7 +92,7 @@ class Bool(object):
         return Bool(Bool.FALSE) if (self.value is other.value) else Bool(Bool.TRUE)
         
         
-def __init__ == '__main__':
+if __name__ == '__main__':
     """
         BRIEF  Main execution
     """

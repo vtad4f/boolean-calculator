@@ -1,11 +1,14 @@
 
 
+import bool
+import replace
 
 
-
-
-
-def __init__ == '__main__':
+if __name__ == '__main__':
     """
         BRIEF  Main execution
     """
+    while True:
+        print(eval(replace.Input().Preprocessing()))
+        
+        
