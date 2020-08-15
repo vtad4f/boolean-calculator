@@ -11,7 +11,7 @@ if __name__ == '__main__':
     while True:
         try:
             print(truth.Table(*replace.Input().Preprocessing()))
-        except (SyntaxError, NameError, TypeError, ValueError) as e:
+        except (SyntaxError, NameError, TypeError) as e:
             print(e)
             
             

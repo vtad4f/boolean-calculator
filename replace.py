@@ -84,7 +84,7 @@ class Input(object):
         ("FALSE", "F"),
     ]
     
-    ALPHA = "ACDEGHIJKLMNOPQRSUWXYZB"
+    ALPHA = "ABCDEGHIJKLMNOPQRSUWXYZ"
     
     
     def __init__(self):

@@ -25,27 +25,17 @@ class Table(object):
             BRIEF  Convert the expression and sentence symbols into a truth
                    table string
         """
-        if len(self.s_symbols) > 2:
-            raise ValueError("Too many sentence symbols at this point in the development!")
-            
-        if len(self.s_symbols) == 0:
-            return '   ' + str(eval(self.expression))
+        indent = '   '
+        num_s = len(self.s_symbols)
+        if num_s == 0:
+            return indent + str(eval(self.expression))
             
         else:
-            table = '   '
-            for s in self.s_symbols:
-                table += s
-            table += '|\n   {0}+-\n'.format('-' * len(self.s_symbols))
+            table = '{0}{1}|\n{0}{2}+-\n'.format(indent, ''.join(self.s_symbols), '-'*len(self.s_symbols))
             
-            if len(self.s_symbols) == 1:
-                table += "   0|" + self._EvalExpression(0) + '\n'
-                table += "   1|" + self._EvalExpression(1) + '\n'
-                
-            elif len(self.s_symbols) == 2:
-                table += "   00|" + self._EvalExpression(0, 0) + '\n'
-                table += "   01|" + self._EvalExpression(0, 1) + '\n'
-                table += "   10|" + self._EvalExpression(1, 0) + '\n'
-                table += "   11|" + self._EvalExpression(1, 1) + '\n'
+            for i in range(2**num_s):
+                bin_str = bin(i)[2:].zfill(num_s)
+                table += "{0}{1}|{2}\n".format(indent, bin_str, self._EvalExpression(*map(int,bin_str)))
                 
             return table
             
