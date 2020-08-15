@@ -1,6 +1,6 @@
 
 
-class Bool(object):
+class boolean(object):
     """
         BRIEF  This is an abuse of the normal functionality of these operators
                in python. We are re-using them because python does not allow
@@ -17,7 +17,7 @@ class Bool(object):
             BRIEF  Notice that the implementation does not require particular
                    values for 1 and 0; just that they are distinct
         """
-        self.value = value # Bool.TRUE or Bool.FALSE
+        self.value = value # boolean.TRUE or boolean.FALSE
         
     def __str__(self):
         """
@@ -29,67 +29,67 @@ class Bool(object):
         """
             BRIEF  '~ A' will represent 'not A'
         """
-        return Bool(Bool.FALSE) if self.value else Bool(Bool.TRUE)
+        return boolean(boolean.FALSE) if self.value else boolean(boolean.TRUE)
         
     def __mul__(self, other):
         """
             BRIEF  'A * B' will represent 'A and B'
         """
-        return Bool(Bool.TRUE) if (self.value is Bool.TRUE and other.value is Bool.TRUE) else Bool(Bool.FALSE)
+        return boolean(boolean.TRUE) if (self.value is boolean.TRUE and other.value is boolean.TRUE) else boolean(boolean.FALSE)
         
     def __matmul__(self, other):
         """
             BRIEF  'A @ B' will represent 'A nand B'
         """
-        return Bool(Bool.TRUE) if (self.value is Bool.TRUE and other.value is Bool.TRUE) else Bool(Bool.FALSE)
+        return boolean(boolean.TRUE) if (self.value is boolean.TRUE and other.value is boolean.TRUE) else boolean(boolean.FALSE)
         
     def __add__(self, other):
         """
             BRIEF  'A + B' will represent 'A or B'
         """
-        return Bool(Bool.FALSE) if (self.value is Bool.FALSE and other.value is Bool.FALSE) else Bool(Bool.TRUE)
+        return boolean(boolean.FALSE) if (self.value is boolean.FALSE and other.value is boolean.FALSE) else boolean(boolean.TRUE)
         
     def __sub__(self, other):
         """
             BRIEF  'A - B' will represent 'A nor B'
         """
-        return Bool(Bool.TRUE) if (self.value is Bool.FALSE and other.value is Bool.FALSE) else Bool(Bool.FALSE)
+        return boolean(boolean.TRUE) if (self.value is boolean.FALSE and other.value is boolean.FALSE) else boolean(boolean.FALSE)
         
     def __rshift__(self, other):
         """
             BRIEF  'A >> B' will represent 'A implies B'
         """
-        return Bool(Bool.FALSE) if (self.value is Bool.TRUE and other.value is Bool.FALSE) else Bool(Bool.TRUE)
+        return boolean(boolean.FALSE) if (self.value is boolean.TRUE and other.value is boolean.FALSE) else boolean(boolean.TRUE)
         
     def __truediv__(self, other):
         """
             BRIEF  'A / B' will represent 'A does not imply B'
         """
-        return Bool(Bool.TRUE) if (self.value is Bool.TRUE and other.value is Bool.FALSE) else Bool(Bool.FALSE)
+        return boolean(boolean.TRUE) if (self.value is boolean.TRUE and other.value is boolean.FALSE) else boolean(boolean.FALSE)
         
     def __lshift__(self, other):
         """
             BRIEF  'A << B' will represent 'B implies A'
         """
-        return Bool(Bool.FALSE) if (self.value is Bool.FALSE and other.value is Bool.TRUE) else Bool(Bool.TRUE)
+        return boolean(boolean.FALSE) if (self.value is boolean.FALSE and other.value is boolean.TRUE) else boolean(boolean.TRUE)
         
     def __floordiv__(self, other):
         """
             BRIEF  'A // B' will represent 'B does not imply A'
         """
-        return Bool(Bool.TRUE) if (self.value is Bool.FALSE and other.value is Bool.TRUE) else Bool(Bool.FALSE)
+        return boolean(boolean.TRUE) if (self.value is boolean.FALSE and other.value is boolean.TRUE) else boolean(boolean.FALSE)
         
     def __mod__(self, other):
         """
             BRIEF  'A % B' will represent 'A iff B'
         """
-        return Bool(Bool.TRUE) if (self.value is other.value) else Bool(Bool.FALSE)
+        return boolean(boolean.TRUE) if (self.value is other.value) else boolean(boolean.FALSE)
         
     def __xor__(self, other):
         """
             BRIEF  'A ^ B' will represent 'A xor B'
         """
-        return Bool(Bool.FALSE) if (self.value is other.value) else Bool(Bool.TRUE)
+        return boolean(boolean.FALSE) if (self.value is other.value) else boolean(boolean.TRUE)
         
         
 if __name__ == '__main__':

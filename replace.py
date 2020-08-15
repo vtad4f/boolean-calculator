@@ -1,11 +1,13 @@
 
-import bool
+
+import boolean
 
 
 class Forbidden:
     SYMBOLS = [
-        ("*", "~"), # Now allowed since it's on the wrong side
-        ("'", "~")  # Now allowed since it's on the wrong side
+        ("*", "'~' or 'not'"), # Now allowed since it's on the wrong side
+        ("'", "'~' or 'not'"), # Now allowed since it's on the wrong side
+        ("`", "'~' or 'not'")  # Now allowed since it's on the wrong side
     ]
 
 
@@ -29,11 +31,17 @@ class Input(object):
     
     # TODO - Add the Unicode chars that Notepad++ didn't recognize
     SYMBOLS = [
+        ("!="     , "^" ),
+        ("<>"     , "^" ),
         ("¬"      , "~" ),
         ("∧"      , "*" ),
         ("^"      , "*" ),
+        ("&"      , "*" ),
+        ("&&"     , "*" ),
         ("∨"      , "+" ),
         ("V"      , "+" ),
+        ("|"      , "+" ),
+        ("||"     , "+" ),
         ("⇒"      , ">>"),
         ("→"      , ">>"),
         ("->"     , ">>"),
@@ -54,51 +62,72 @@ class Input(object):
     ]
     
     TEXT = [
-        ("NOT"              , "~" ),
-        ("AND"              , "*" ),
-        ("NAND"             , "@" ),
-        ("OR"               , "+" ),
-        ("NOR"              , "-" ),
-        ("IMPLIES"          , ">>"),
-        ("DOESN'T IMPLY"    , "/" ),
-        ("DOES NOT IMPLY"   , "/" ),
-        ("IFF"              , "%" ),
-        ("IF AND ONLY IF"   , "%" ),
-        ("IS EQUIVALENT TO" , "%" ),
-        ("XNOR"             , "%" ),
-        ("XOR"              , "^" )
+        ("NOT"             , "~" ),
+        ("AND"             , "*" ),
+        ("NAND"            , "@" ),
+        ("OR"              , "+" ),
+        ("NOR"             , "-" ),
+        ("IMPLIES"         , ">>"),
+        ("DOESNT IMPLY"    , "/" ),
+        ("DOES NOT IMPLY"  , "/" ),
+        ("IFF"             , "%" ),
+        ("IF AND ONLY IF"  , "%" ),
+        ("IS EQUIVALENT TO", "%" ),
+        ("XNOR"            , "%" ),
+        ("XOR"             , "^" )
     ]
-    
-    TRUE_INSTANCE = "bool.Bool(1)"
-    FALSE_INSTANCE = "bool.Bool(0)"
     
     TRUE_FALSE = [
-        ("1"    , TRUE_INSTANCE ),
-        ("0"    , FALSE_INSTANCE),
-        ("T"    , TRUE_INSTANCE ),
-        ("F"    , FALSE_INSTANCE),
-        ("TRUE" , TRUE_INSTANCE ),
-        ("FALSE", FALSE_INSTANCE),
+        (str(boolean.boolean.TRUE) , "T"),
+        (str(boolean.boolean.FALSE), "F"),
+        ("TRUE" , "T"),
+        ("FALSE", "F"),
     ]
+    
+    ALPHA = "ACDEGHIJKLMNOPQRSUWXYZB"
+    
     
     def __init__(self):
         """
-            BRIEF  
+            BRIEF  Cache the uppercase user input
         """
-        self.content = input()
+        self.content = input().strip().upper()
         
+        if 'EXIT' in self.content:
+            raise Exception # User exited
+            
     def Preprocessing(self):
         """
-            BRIEF  
+            BRIEF  Perform string replacements
         """
         for symbol, alternative in Forbidden.SYMBOLS:
             if symbol in self.content:
-                raise Exception("{0} isn't allowed! Use {1} instead.".format(symbol, alternative))
+                raise SyntaxError("{0} isn't allowed! Use {1} instead.".format(symbol, alternative))
                 
-        for replacements in [Input.SYMBOLS, Input.TEXT, Input.TRUE_FALSE]:
-            for before, after in reversed(replacements):
-                self.content = self.content.replace(before, after)
-                
-        return self.content
+        self._Replace(Input.SYMBOLS)
+        self._Replace(Input.TEXT)
+        self._Replace(Input.TRUE_FALSE)
         
+        s_symbols = []
+        for a in Input.ALPHA:
+            if a in self.content:
+                s_symbols.append(a)
         
+        return self.content, s_symbols
+        
+    def _Replace(self, replacements):
+        """
+            BRIEF  Replace all the instances of before with after in contents
+        """
+        for before, after in reversed(replacements):
+            self.content = self.content.replace(before, after)
+            
+            
+if __name__ == '__main__':
+    """
+        BRIEF  Main execution
+    """
+    
+    
+            
+            
