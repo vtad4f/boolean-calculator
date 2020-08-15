@@ -5,9 +5,9 @@ import boolean
 
 class Forbidden:
     SYMBOLS = [
-        ("*", "'~' or 'not'"), # Now allowed since it's on the wrong side
-        ("'", "'~' or 'not'"), # Now allowed since it's on the wrong side
-        ("`", "'~' or 'not'")  # Now allowed since it's on the wrong side
+        ("*", "'~', '!', 'not'"), # Now allowed since it's on the wrong side
+        ("'", "'~', '!', 'not'"), # Now allowed since it's on the wrong side
+        ("`", "'~', '!', 'not'")  # Now allowed since it's on the wrong side
     ]
 
 
@@ -34,6 +34,7 @@ class Input(object):
         ("!="     , "^" ),
         ("<>"     , "^" ),
         ("¬"      , "~" ),
+        ("!"      , "~" ),
         ("∧"      , "*" ),
         ("^"      , "*" ),
         ("&"      , "*" ),
